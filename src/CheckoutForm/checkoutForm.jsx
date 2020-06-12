@@ -1,7 +1,8 @@
 import React from 'react';
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 ///
- import Input from "../Input/input";
+import Image from "../imageComp/imageComp"
+import Input from "./input"
 import Card from "../Card/card";
 import Button from "../button/button"
 import "./checkoutForm.css"
@@ -9,7 +10,10 @@ import "./checkoutForm.css"
 
 
 
+
+
 export default function CheckoutForm() {
+    
   const stripe = useStripe();
   const elements = useElements();
 
@@ -48,36 +52,19 @@ export default function CheckoutForm() {
     }
   };
 
+ 
+  
   return (
     <div className ="back-drop">
-    
-        <div className="container">
+      <div className="container">
+              <Image/>
             <form onSubmit={handleSubmit}>
-                <div className="container-input">
-                    <Input/>
-                    <Input
-                    style={{borderRadius:"0px"}}
-                    />
-                    <Input/>
-                   
-                </div>
-            
+              <Input/>
                 <Card/>
                 <Button/>
-            
-            </form>
-            
-    
-       
-       
-           
-    </div>
-       
-    
-    
-    
-   
-    </div>
+          </form>
+        </div>
+      </div>
   );
 }
 

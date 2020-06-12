@@ -1,0 +1,9 @@
+.image-flex{
+    display:flex;
+    justify-content: center;
+
+}
+
+.pomelo-img{
+    margin-bottom:30px;
+}

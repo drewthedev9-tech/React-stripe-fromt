@@ -3,7 +3,7 @@ import button from "./button.css"
 
 const Button = () => {
     return ( 
-        <div classname="button-flex">
+        <div className="button-flex">
         <button className="button">
        Confirm Order
        </button>

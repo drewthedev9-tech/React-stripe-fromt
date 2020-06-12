@@ -1,11 +1,28 @@
 .button{
     
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 85%;
+  height:50px;
+   margin-top: 20px;
+    width: 100%;
+    box-shadow: lightcyan;
+    background-color: #556cd6;
+    border-width: 0px;
+    color: white;
+    font-weight: bold;
+    font-family: "Libre Franklin", "Helvetica Neue", helvetica, arial, sans-serif;
 }
 
 .button-flex{
     display: flex;
     justify-content: center;
+}
+
+.button:focus{
+    box-shadow: none;
+    outline: none;
+} 
+
+.button:hover{
+   
+    cursor:pointer;
+    background-color: #5972df;
 }
