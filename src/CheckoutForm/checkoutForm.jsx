@@ -13,6 +13,8 @@ import "./checkoutForm.css"
 
 
 export default function CheckoutForm() {
+
+
     
   const stripe = useStripe();
   const elements = useElements();
@@ -61,7 +63,7 @@ export default function CheckoutForm() {
             <form onSubmit={handleSubmit}>
               <Input/>
                 <Card/>
-                <Button/>
+                <Button type="submit" disabled={!stripe}/>
           </form>
         </div>
       </div>
