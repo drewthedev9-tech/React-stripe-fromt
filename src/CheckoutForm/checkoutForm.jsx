@@ -18,31 +18,7 @@ class CheckoutForm extends React.Component {
     phone: ""
   }
 
-   // const handleSubmit = async(event)=>{
-  //   event.preventDefault();
-
-  //   const {error, paymentMethod} = await stripe.createPaymentMethod({
-  //     type: 'card',
-  //     // use the card element from stripe.
-  //     card: elements.getElement(CardElement)
-
-  //   });
-
-  //   if (!error){
-  //     console.log(paymentMethod);
-  //     const {id} = paymentMethod; 
-  //     const {data} = await axios.post("/api/charge",{id, amount:4000})
-  //   } try{
-
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-
-
-  // }
- 
-  // const stripe = useStripe();
-  // const elements = useElements();
+  
 
  
 
@@ -69,8 +45,20 @@ class CheckoutForm extends React.Component {
 
   handleSubmit = async (event) => {
 
-    const {name, email,phone} = this.state
+    // sending form data to back end with axios library.
+    const {name, email,phone} = this.state;
+    let formData = new FormData();
+    formData.append(name);
+    formData.append(email);
+    formData.append(phone);  
+    const url = ("http://127.0.0.1/React-stripe-API/charge.php");
+    axios.post(url,formData)
+    .then(res=> console.log(res.data))
+    .catch(err=> console.log(err))
+
     console.log(name,email,phone);
+
+    // make function 
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -97,19 +85,25 @@ class CheckoutForm extends React.Component {
 
     function stripeTokenHandler(token) {
       const paymentData = {token: token.id};
-      // // const proxyUrl = "";
+      // // const proxyUrl = 'https://cors-anywhere.herokuapp.com/http://sipla.cuci.udg.mx/sc/horariop.php?c=219359735&k=0d8ce4fab5f4df9ce711cae81e044e1a';";
       console.log(paymentData);
        //Use fetch to send the token ID and any other payment data to your server.
        //   https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
       const response = axios.post('http://127.0.0.1/React-stripe-API/charge.php', {
         method: 'POST',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-         'Access-Control-Allow-Origin': 'http://localhost:3000',
-          'Content-Type': 'application/json'
+        //   'X-Requested-With': 'XMLHttpRequest',
+        //  'Access-Control-Allow-Origin': 'http://localhost:3000',
+        //   'Content-Type': 'application/json'
         },
         body: JSON.stringify(paymentData),
       });
+        // axios({
+        //     method: 'post',
+        //     url: '/api/contacts.php',
+        //     data: formData,
+        //     config: { headers: {'Content-Type': 'multipart/form-data' }}
+        // })
       console.log("data submitted");
        // Return and display the result of the charge.
       return response;
