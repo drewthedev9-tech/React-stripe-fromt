@@ -19,9 +19,6 @@ class CheckoutForm extends React.Component {
   }
 
   
-
- 
-
   // input helper method.
   handleName = async e =>{
     await this.setState({
@@ -47,10 +44,12 @@ class CheckoutForm extends React.Component {
 
     // sending form data to back end with axios library.
     const {name, email,phone} = this.state;
+    // create new form data instance
     let formData = new FormData();
-    formData.append(name);
-    formData.append(email);
-    formData.append(phone);  
+    // then attacth to theat new instance.
+    formData.append("name",name);
+    formData.append("email",email);
+    formData.append("phone",phone);  
     const url = ("http://127.0.0.1/React-stripe-API/charge.php");
     axios.post(url,formData)
     .then(res=> console.log(res.data))
@@ -61,53 +60,53 @@ class CheckoutForm extends React.Component {
     // make function 
     // We don't want to let default form submission happen here,
     // which would refresh the page.
-    event.preventDefault();
+    // event.preventDefault();
 
-    const {stripe, elements} = this.props;
+    // const {stripe, elements} = this.props;
 
-    if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make  sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
+    // if (!stripe || !elements) {
+    //   // Stripe.js has not yet loaded.
+    //   // Make  sure to disable form submission until Stripe.js has loaded.
+    //   return;
+    // }
 
-    const card = elements.getElement(CardElement);
-    const result = await stripe.createToken(card);
+    // const card = elements.getElement(CardElement);
+    // const result = await stripe.createToken(card);
 
-    if (result.error) {
-      // Show error to your customer.
-      console.log(result.error.message);
-    } else {
-      // Send the token to your server.
+    // if (result.error) {
+    //   // Show error to your customer.
+    //   console.log(result.error.message);
+    // } else {
+    //   // Send the token to your server.
      
-      stripeTokenHandler(result.token);
-    }
+    //   stripeTokenHandler(result.token);
+    // }
 
-    function stripeTokenHandler(token) {
-      const paymentData = {token: token.id};
-      // // const proxyUrl = 'https://cors-anywhere.herokuapp.com/http://sipla.cuci.udg.mx/sc/horariop.php?c=219359735&k=0d8ce4fab5f4df9ce711cae81e044e1a';";
-      console.log(paymentData);
-       //Use fetch to send the token ID and any other payment data to your server.
-       //   https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-      const response = axios.post('http://127.0.0.1/React-stripe-API/charge.php', {
-        method: 'POST',
-        headers: {
-        //   'X-Requested-With': 'XMLHttpRequest',
-        //  'Access-Control-Allow-Origin': 'http://localhost:3000',
-        //   'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(paymentData),
-      });
+    // function stripeTokenHandler(token) {
+    //   const paymentData = {token: token.id};
+    //   // // const proxyUrl = 'https://cors-anywhere.herokuapp.com/http://sipla.cuci.udg.mx/sc/horariop.php?c=219359735&k=0d8ce4fab5f4df9ce711cae81e044e1a';";
+    //   console.log(paymentData);
+    //    //Use fetch to send the token ID and any other payment data to your server.
+    //    //   https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    //   const response = axios.post('http://127.0.0.1/React-stripe-API/charge.php', {
+    //     method: 'POST',
+    //     headers: {
+    //     //   'X-Requested-With': 'XMLHttpRequest',
+    //     //  'Access-Control-Allow-Origin': 'http://localhost:3000',
+    //     //   'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(paymentData),
+    //   });
         // axios({
         //     method: 'post',
         //     url: '/api/contacts.php',
         //     data: formData,
         //     config: { headers: {'Content-Type': 'multipart/form-data' }}
         // })
-      console.log("data submitted");
-       // Return and display the result of the charge.
-      return response;
-    }
+    //   console.log("data submitted");
+    //    // Return and display the result of the charge.
+    //   return response;
+    // }
 
     
   };
@@ -126,14 +125,15 @@ class CheckoutForm extends React.Component {
                 handleEmail={handleEmail}
                 handlePhone={handlePhone}
                  />
-                  <Card/>
-                  <Button type="submit" disabled={!this.props.stripe}/>
+                 
+                  <Button type="submit" />
             </form>
           </div>
         </div>
     );
   }
   }
+  // disabled={!this.props.stripe}
   
 
 export default function InjectedCheckoutForm() {
